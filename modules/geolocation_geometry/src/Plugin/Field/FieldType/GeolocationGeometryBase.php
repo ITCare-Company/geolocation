@@ -165,13 +165,13 @@ abstract class GeolocationGeometryBase extends FieldItemBase {
     if ($reference_point) {
       return [
         'latitude' => rand(
-            (int) max(-89, ($reference_point['latitude'] - $range)),
-            (int) min(90, ($reference_point['latitude'] + $range))
-          ) - (rand(0, 999999) / 1000000),
+          (int) max(-89, ($reference_point['latitude'] - $range)),
+          (int) min(90, ($reference_point['latitude'] + $range))
+        ) - (rand(0, 999999) / 1000000),
         'longitude' => rand(
-            (int) max(-179, ($reference_point['longitude'] - $range)),
-            (int) min(180, ($reference_point['longitude'] + $range))
-          ) - (rand(0, 999999) / 1000000),
+          (int) max(-179, ($reference_point['longitude'] - $range)),
+          (int) min(180, ($reference_point['longitude'] + $range))
+        ) - (rand(0, 999999) / 1000000),
       ];
     }
 
