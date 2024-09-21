@@ -80,7 +80,7 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
       $result = Json::decode(\Drupal::httpClient()->request('GET', $request_url)->getBody());
     }
     catch (RequestException $e) {
-      watchdog_exception('geolocation', $e);
+      \Drupal::logger('geolocation')->warning($e->getMessage());
       return FALSE;
     }
 
@@ -111,7 +111,7 @@ class GooglePlacesAPI extends GoogleGeocoderBase {
 
     }
     catch (RequestException $e) {
-      watchdog_exception('geolocation', $e);
+      \Drupal::logger('geolocation')->warning($e->getMessage());
       return FALSE;
     }
 
