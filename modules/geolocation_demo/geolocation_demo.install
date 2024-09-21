@@ -7,7 +7,6 @@
 
 use Drupal\Component\Utility\Random;
 use Drupal\Core\File\FileExists;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 
 /**
