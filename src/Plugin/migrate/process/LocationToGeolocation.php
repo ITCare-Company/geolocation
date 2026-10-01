@@ -70,11 +70,16 @@ class LocationToGeolocation extends ProcessPluginBase implements ContainerFactor
     $source_database = $source_plugin->getDatabase();
 
     try {
+      // D12: StatementInterface::fetchAllAssoc() strictly types its fetch
+      // mode to the FetchAs enum (change record 3488338) — passing
+      // \PDO::FETCH_ASSOC (an int) is now a fatal TypeError, not a
+      // deprecation.
+      $fetch_mode = class_exists('\Drupal\Core\Database\Statement\FetchAs') ? \Drupal\Core\Database\Statement\FetchAs::Associative : \PDO::FETCH_ASSOC;
       $location_result = $source_database->select('location', 'l')
         ->fields('l')
         ->condition('l.lid', $value['lid'])
         ->execute()
-        ->fetchAllAssoc('lid', \PDO::FETCH_ASSOC);
+        ->fetchAllAssoc('lid', $fetch_mode);
 
       if (count($location_result) === 1) {
         $location_raw = reset($location_result);

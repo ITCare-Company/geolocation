@@ -16,12 +16,12 @@ function geolocation_geocodio_requirements($phase) {
     'title' => t('Geolocation Geocodio - Composer dependency'),
     'value' => t('Libraries installed'),
     'description' => t('Use "composer require geocodio/geocodio-library-php" to install required library.'),
-    'severity' => REQUIREMENT_OK,
+    'severity' => (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::OK : REQUIREMENT_OK),
   ];
 
   if (!class_exists('Geocodio\\Geocodio')) {
     $requirements['geolocation_geocodio_composer']['value'] = t('Libraries not installed');
-    $requirements['geolocation_geocodio_composer']['severity'] = REQUIREMENT_ERROR;
+    $requirements['geolocation_geocodio_composer']['severity'] = (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::Error : REQUIREMENT_ERROR);
   }
 
   if ($phase == 'runtime') {
@@ -29,13 +29,13 @@ function geolocation_geocodio_requirements($phase) {
       'title' => t('Geolocation - Geocodio API Key'),
       'value' => t('Geocodio API key set'),
       'description' => t('A Geocodio API key is set in the <a href=":geolocation_geocodio_settings_url">Geolocation settings</a>.', [':geolocation_geocodio_settings_url' => Url::fromRoute('geolocation_geocodio.settings')->toString()]),
-      'severity' => REQUIREMENT_OK,
+      'severity' => (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::OK : REQUIREMENT_OK),
     ];
 
     if (empty(\Drupal::config('geolocation_geocodio.settings')->get('api_key'))) {
       $requirements['geolocation_geocodio_api_key']['value'] = t('Geocodio API key missing');
       $requirements['geolocation_geocodio_api_key']['description'] = t('A Geocodio API key is missing in the <a href=":geolocation_geocodio_settings_url">Geolocation settings</a>.', [':geolocation_geocodio_settings_url' => Url::fromRoute('geolocation_geocodio.settings')->toString()]);
-      $requirements['geolocation_geocodio_api_key']['severity'] = REQUIREMENT_WARNING;
+      $requirements['geolocation_geocodio_api_key']['severity'] = (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::Warning : REQUIREMENT_WARNING);
     }
   }
 

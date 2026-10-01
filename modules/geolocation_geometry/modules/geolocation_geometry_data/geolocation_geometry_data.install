@@ -27,12 +27,12 @@ function geolocation_geometry_data_requirements($phase) {
     'title' => t('Geolocation Geometry Data - Composer dependency'),
     'value' => t('Libraries installed'),
     'description' => t('Use "composer require gasparesganga/php-shapefile" to install required library.'),
-    'severity' => REQUIREMENT_OK,
+    'severity' => (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::OK : REQUIREMENT_OK),
   ];
 
   if (!class_exists('Shapefile\\ShapefileReader')) {
     $requirements['geolocation_geometry_data_composer']['value'] = t('Libraries not installed');
-    $requirements['geolocation_geometry_data_composer']['severity'] = REQUIREMENT_ERROR;
+    $requirements['geolocation_geometry_data_composer']['severity'] = (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::Error : REQUIREMENT_ERROR);
   }
 
   return $requirements;

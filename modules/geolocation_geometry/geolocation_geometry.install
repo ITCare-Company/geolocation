@@ -14,7 +14,7 @@ function geolocation_geometry_requirements($phase) {
     'title' => t('Geolocation Geometry - Database Compatibility'),
     'value' => t('Database meets required spatial data capability.'),
     'description' => t('Requires MySQL >= 5.7.6 or MariaDB >= 10.1.2 or PostgreSQL with PostGIS installed.'),
-    'severity' => REQUIREMENT_OK,
+    'severity' => (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::OK : REQUIREMENT_OK),
   ];
 
   // Must be MySQL >= 5.7.6 or MariaDB >= 10.1.2.
@@ -38,7 +38,7 @@ function geolocation_geometry_requirements($phase) {
   }
 
   $requirements['geolocation_geometry_database_compatibility']['value'] = t('Database version %version does not meet required spatial data capability.', ['%version' => $connection->version()]);
-  $requirements['geolocation_geometry_database_compatibility']['severity'] = REQUIREMENT_ERROR;
+  $requirements['geolocation_geometry_database_compatibility']['severity'] = (class_exists('\\Drupal\\Core\\Extension\\Requirement\\RequirementSeverity') ? \Drupal\Core\Extension\Requirement\RequirementSeverity::Error : REQUIREMENT_ERROR);
 
   return $requirements;
 }
