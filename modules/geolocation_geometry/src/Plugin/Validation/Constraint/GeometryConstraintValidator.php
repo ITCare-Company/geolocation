@@ -14,7 +14,7 @@ class GeometryConstraintValidator extends ConstraintValidator {
   /**
    * {@inheritdoc}
    */
-  public function validate($value, Constraint $constraint) {
+  public function validate(mixed $value, Constraint $constraint): void {
 
     if (!is_a($constraint, GeometryConstraint::class)) {
       return;
