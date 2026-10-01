@@ -7,6 +7,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\geolocation\Attribute\Geocoder as GeocoderAttribute;
 
 /**
  * Search plugin manager.
@@ -25,7 +26,7 @@ class GeocoderManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/Geocoder', $namespaces, $module_handler, 'Drupal\geolocation\GeocoderInterface', 'Drupal\geolocation\Annotation\Geocoder');
+    parent::__construct('Plugin/geolocation/Geocoder', $namespaces, $module_handler, 'Drupal\geolocation\GeocoderInterface', GeocoderAttribute::class, 'Drupal\geolocation\Annotation\Geocoder');
     $this->alterInfo('geolocation_geocoder_info');
     $this->setCacheBackend($cache_backend, 'geolocation_geocoder');
   }

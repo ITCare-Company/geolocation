@@ -8,6 +8,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\geolocation\Attribute\DataProvider as DataProviderAttribute;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 
 /**
@@ -27,7 +28,7 @@ class DataProviderManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/DataProvider', $namespaces, $module_handler, 'Drupal\geolocation\DataProviderInterface', 'Drupal\geolocation\Annotation\DataProvider');
+    parent::__construct('Plugin/geolocation/DataProvider', $namespaces, $module_handler, 'Drupal\geolocation\DataProviderInterface', DataProviderAttribute::class, 'Drupal\geolocation\Annotation\DataProvider');
     $this->alterInfo('geolocation_dataprovider_info');
     $this->setCacheBackend($cache_backend, 'geolocation_dataprovider');
   }

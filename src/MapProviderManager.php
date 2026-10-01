@@ -7,6 +7,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\geolocation\Attribute\MapProvider as MapProviderAttribute;
 
 /**
  * Search plugin manager.
@@ -25,7 +26,7 @@ class MapProviderManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/MapProvider', $namespaces, $module_handler, 'Drupal\geolocation\MapProviderInterface', 'Drupal\geolocation\Annotation\MapProvider');
+    parent::__construct('Plugin/geolocation/MapProvider', $namespaces, $module_handler, 'Drupal\geolocation\MapProviderInterface', MapProviderAttribute::class, 'Drupal\geolocation\Annotation\MapProvider');
     $this->alterInfo('geolocation_mapprovider_info');
     $this->setCacheBackend($cache_backend, 'geolocation_mapprovider');
   }

@@ -7,6 +7,7 @@ use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\geolocation\Attribute\MapCenter as MapCenterAttribute;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -28,7 +29,7 @@ class MapCenterManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/MapCenter', $namespaces, $module_handler, 'Drupal\geolocation\MapCenterInterface', 'Drupal\geolocation\Annotation\MapCenter');
+    parent::__construct('Plugin/geolocation/MapCenter', $namespaces, $module_handler, 'Drupal\geolocation\MapCenterInterface', MapCenterAttribute::class, 'Drupal\geolocation\Annotation\MapCenter');
     $this->alterInfo('geolocation_mapcenter_info');
     $this->setCacheBackend($cache_backend, 'geolocation_mapcenter');
   }

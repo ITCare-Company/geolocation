@@ -6,6 +6,7 @@ use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\geolocation\Attribute\MapFeature as MapFeatureAttribute;
 
 /**
  * Search plugin manager.
@@ -24,7 +25,7 @@ class MapFeatureManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/MapFeature', $namespaces, $module_handler, 'Drupal\geolocation\MapFeatureInterface', 'Drupal\geolocation\Annotation\MapFeature');
+    parent::__construct('Plugin/geolocation/MapFeature', $namespaces, $module_handler, 'Drupal\geolocation\MapFeatureInterface', MapFeatureAttribute::class, 'Drupal\geolocation\Annotation\MapFeature');
     $this->alterInfo('geolocation_mapfeature_info');
     $this->setCacheBackend($cache_backend, 'geolocation_mapfeature');
   }

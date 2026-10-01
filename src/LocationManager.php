@@ -6,6 +6,7 @@ use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\geolocation\Attribute\Location as LocationAttribute;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -27,7 +28,7 @@ class LocationManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/Location', $namespaces, $module_handler, 'Drupal\geolocation\LocationInterface', 'Drupal\geolocation\Annotation\Location');
+    parent::__construct('Plugin/geolocation/Location', $namespaces, $module_handler, 'Drupal\geolocation\LocationInterface', LocationAttribute::class, 'Drupal\geolocation\Annotation\Location');
     $this->alterInfo('geolocation_location_info');
     $this->setCacheBackend($cache_backend, 'geolocation_location');
   }

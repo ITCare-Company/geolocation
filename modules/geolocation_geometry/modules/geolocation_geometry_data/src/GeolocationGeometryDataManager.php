@@ -5,6 +5,7 @@ namespace Drupal\geolocation_geometry_data;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\geolocation_geometry_data\Attribute\GeolocationGeometryData as GeolocationGeometryDataAttribute;
 
 /**
  * Search plugin manager.
@@ -23,7 +24,7 @@ class GeolocationGeometryDataManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/geolocation/GeolocationGeometryData', $namespaces, $module_handler, NULL, 'Drupal\geolocation_geometry_data\Annotation\GeolocationGeometryData');
+    parent::__construct('Plugin/geolocation/GeolocationGeometryData', $namespaces, $module_handler, NULL, GeolocationGeometryDataAttribute::class, 'Drupal\geolocation_geometry_data\Annotation\GeolocationGeometryData');
     $this->alterInfo('geolocation_geometry_data_info');
     $this->setCacheBackend($cache_backend, 'geolocation_geometry_data');
   }
