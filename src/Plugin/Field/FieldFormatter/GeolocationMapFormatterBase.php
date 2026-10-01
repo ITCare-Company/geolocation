@@ -104,7 +104,7 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
     $settings['map_provider_settings'] = [];
     $settings['info_text'] = [
       'value' => '',
-      'format' => filter_fallback_format(),
+      'format' => \Drupal\Component\Utility\DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('Drupal\filter\FilterFormatRepositoryInterface')->getFallbackFormatId(), fn() => filter_fallback_format()),
     ];
     $settings['use_overridden_map_settings'] = FALSE;
     return $settings;
@@ -294,7 +294,7 @@ abstract class GeolocationMapFormatterBase extends FormatterBase {
         && !empty($settings['info_text']['format'])
       ) {
         $summary[] = $this->t('Marker Info Text: @type', [
-          '@type' => current(explode(chr(10), wordwrap(check_markup($settings['info_text']['value'], $settings['info_text']['format']), 30))),
+          '@type' => current(explode(chr(10), wordwrap(\Drupal::service('renderer')->renderInIsolation(['#type' => 'processed_text', '#text' => $settings['info_text']['value'], '#format' => $settings['info_text']['format']]), 30))),
         ]);
       }
 

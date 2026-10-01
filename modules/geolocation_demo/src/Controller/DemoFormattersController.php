@@ -75,7 +75,7 @@ class DemoFormattersController extends ControllerBase {
         'settings' => [
           'tokenized_text' => [
             'value' => 'The latitude value of this item is: [geolocation_current_item:lat]',
-            'format' => filter_default_format(),
+            'format' => \Drupal\Component\Utility\DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('Drupal\filter\FilterFormatRepositoryInterface')->getDefaultFormat()->id(), fn() => filter_default_format()),
           ],
         ],
         'third_party_settings' => [],

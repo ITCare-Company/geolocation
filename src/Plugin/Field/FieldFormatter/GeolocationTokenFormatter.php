@@ -49,7 +49,7 @@ class GeolocationTokenFormatter extends FormatterBase {
     $settings = [];
     $settings['tokenized_text'] = [
       'value' => '',
-      'format' => filter_default_format(),
+      'format' => \Drupal\Component\Utility\DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('Drupal\filter\FilterFormatRepositoryInterface')->getDefaultFormat()->id(), fn() => filter_default_format()),
     ];
     $settings += parent::defaultSettings();
 
@@ -93,7 +93,7 @@ class GeolocationTokenFormatter extends FormatterBase {
     ) {
       $summary[] = $this->t('Tokenized Text: %text', [
         '%text' => Unicode::truncate(
-          check_markup($settings['tokenized_text']['value'], $settings['tokenized_text']['format']),
+          \Drupal::service('renderer')->renderInIsolation(['#type' => 'processed_text', '#text' => $settings['tokenized_text']['value'], '#format' => $settings['tokenized_text']['format']]),
           100,
           TRUE,
           TRUE

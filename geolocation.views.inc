@@ -18,7 +18,7 @@ function geolocation_field_views_data(FieldStorageConfigInterface $field_storage
   $entity_definition = \Drupal::entityTypeManager()->getDefinition($field_storage->getTargetEntityTypeId());
 
   // Get the default data from the views module.
-  $data = views_field_default_views_data($field_storage);
+  $data = \Drupal\Component\Utility\DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.2.0', fn() => \Drupal::service(\Drupal\views\FieldViewsDataProvider::class)->defaultFieldImplementation($field_storage), fn() => views_field_default_views_data($field_storage));
 
   $title_short = $help = '';
 

@@ -24,7 +24,7 @@ class ContextPopup extends MapFeatureBase {
     return [
       'content' => [
         'value' => '',
-        'format' => filter_default_format(),
+        'format' => \Drupal\Component\Utility\DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('Drupal\filter\FilterFormatRepositoryInterface')->getDefaultFormat()->id(), fn() => filter_default_format()),
       ],
     ];
   }
@@ -60,7 +60,7 @@ class ContextPopup extends MapFeatureBase {
       !empty($settings['content']['value'])
       && !empty($settings['content']['format'])
     ) {
-      $content = check_markup(\Drupal::token()->replace($feature_settings['content']['value'], $context), $feature_settings['content']['format']);
+      $content = \Drupal::service('renderer')->renderInIsolation(['#type' => 'processed_text', '#text' => \Drupal::token()->replace($feature_settings['content']['value'], $context), '#format' => $feature_settings['content']['format']]);
     }
     else {
       return $render_array;

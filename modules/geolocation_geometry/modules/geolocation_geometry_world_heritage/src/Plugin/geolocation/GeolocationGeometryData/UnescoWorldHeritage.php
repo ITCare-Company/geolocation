@@ -78,7 +78,7 @@ class UnescoWorldHeritage extends GeolocationGeometryDataBase {
           'title' => Html::decodeEntities(strip_tags($site->site)),
           'field_geometry_data_description' => [
             'value' => $site->short_description,
-            'format' => filter_default_format(),
+            'format' => \Drupal\Component\Utility\DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('Drupal\filter\FilterFormatRepositoryInterface')->getDefaultFormat()->id(), fn() => filter_default_format()),
           ],
           'field_geometry_data_point' => [
             'geojson' => '{"type": "Point", "coordinates": [' . $site->longitude . ', ' . $site->latitude . ']}',

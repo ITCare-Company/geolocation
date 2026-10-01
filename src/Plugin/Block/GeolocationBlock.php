@@ -244,7 +244,7 @@ class GeolocationBlock extends BlockBase implements ContainerFactoryPluginInterf
       'marker_title' => '',
       'marker_content' => [
         'value' => '',
-        'format' => filter_default_format(),
+        'format' => \Drupal\Component\Utility\DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.4.0', fn() => \Drupal::service('Drupal\filter\FilterFormatRepositoryInterface')->getDefaultFormat()->id(), fn() => filter_default_format()),
       ],
       'marker_coordinates' => [],
     ];
